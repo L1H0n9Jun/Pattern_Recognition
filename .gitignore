@@ -1,0 +1,17 @@
+# Windows:
+Thumbs.db
+Desktop.ini
+
+# Python:
+*.py[cod]
+*.so
+*.egg
+*.egg-info
+dist
+build
+
+# My configurations:
+.settings
+.project
+.pydevproject
+
