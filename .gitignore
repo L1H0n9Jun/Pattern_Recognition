@@ -1,16 +1,7 @@
-# Windows:
-Thumbs.db
-Desktop.ini
-
-# Python:
+# python
 *.py[cod]
-*.so
-*.egg
-*.egg-info
-dist
-build
 
-# My configurations:
+# eclipse
 .settings
 .project
 .pydevproject
