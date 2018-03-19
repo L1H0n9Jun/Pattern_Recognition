@@ -1,5 +1,6 @@
 #!/usr/bin/env python
 # -*- coding: utf-8 -*-
+from scipy.constants.constants import sigma
 
 # ---------------------------------------------------------------
 # description
@@ -17,7 +18,7 @@ Description:
     context
 
 Reurirements:
-    Python packages: argparse
+    Python packages: argparse, numpy
 """
 
 # ---------------------------------------------------------------
@@ -25,6 +26,7 @@ Reurirements:
 # ---------------------------------------------------------------
 
 import argparse
+import numpy as np
 
 # ---------------------------------------------------------------
 # function definition
@@ -41,7 +43,7 @@ def parse_args():
     parser.add_argument(
         '-i', '--input_file',
         type=str,
-        required=True,
+        required=False,
         help="""
         Transmit file inputted to the script.
         """
@@ -58,6 +60,16 @@ def parse_args():
 
     args = parser.parse_args()
     return args
+
+
+def normal_random_gen(_mu_1, _sigma_1, _mu_2, _sigma_2, n):
+    """ 从p(x)群体产生n个随机样本 """
+    _rand_nor_1 = np.random.normal(_mu_1, _sigma_1, n)
+    _rand_nor_2 = np.random.normal(_mu_2, _sigma_2, n)
+    sample_list = []
+    for i in range(0, n):
+        sample_list.append(0.2 * _rand_nor_1[i] + 0.8 * _rand_nor_2[i])
+    return sample_list
 
 # ---------------------------------------------------------------
 # main function
