@@ -43,18 +43,22 @@ def parse_args():
     )
     parser.add_argument(
         '-n', '--sample_number',
-        type=int,
+        type=str,
         required=True,
         help="""
-        Number of samples used to estimate the population.
+        Number of samples used to estimate the population. 
+        Could be a single int number or multiple numbers 
+        separated by comma, on which the final figure depends.
         """
     )
     parser.add_argument(
         '-w', '--window_width',
-        type=float,
+        type=str,
         required=True,
         help="""
         Parzen window width used.
+        Could be a single float number or multiple numbers 
+        separated by comma, on which the final figure depends.
         """
     )
     parser.add_argument(
@@ -95,6 +99,7 @@ def gaussian_win_func(width_a, x):
 
 
 def switch_win_func(win_type):
+    """ 根据命令行参数确定窗函数类型 """
     if win_type == "uniform":
         return unifrom_win_func
     elif win_type == "gaussian":
@@ -102,6 +107,27 @@ def switch_win_func(win_type):
     else:
         print("Please input a support window function type!")
         sys.exit(0)
+
+
+def arg_turn2list(_arg, _arg_name):
+    """ 判断参数合法性并解析多值参数转换为列表 """
+    arg_list = _arg.split(",")
+    if _arg_name == "num":
+        for i in range(len(arg_list)):
+            try:
+                arg_list[i] = int(arg_list[i])
+            except:
+                print("[ERROR]\nThe number of samples value should be a integer")
+                sys.exit(0)
+    elif _arg_name == "width":
+        for i in range(len(arg_list)):
+            try:
+                arg_list[i] = float(arg_list[i])
+            except:
+                print("[ERROR]\nThe window width value should be a float or integer")
+                sys.exit(0)
+    return arg_list
+
 
 # ---------------------------------------------------------------
 # main function
@@ -111,16 +137,18 @@ def switch_win_func(win_type):
 def main():
     """ main """
     args = parse_args()
+    sample_number_arg_list = arg_turn2list(args.sample_number, "num")
+    window_width_arg_list = arg_turn2list(args.window_width, "width")
 
-    sample_list = normal_random_gen(-1, 1, 1, 1, args.sample_number)
+    sample_list = normal_random_gen(-1, 1, 1, 1, sample_number_arg_list[0])
     sample_point = iter(sample_list)
     pn_x = {}
     window_function = switch_win_func(args.window_type)
     for x in sample_point:
         pn_x[x] = 0
         for sample in sample_list:
-            pn_x[x] += window_function(args.window_width, sample - x)
-        pn_x[x] /= args.sample_number
+            pn_x[x] += window_function(window_width_arg_list[0], sample - x)
+        pn_x[x] /= sample_number_arg_list[0]
 
     fig_x = pn_x.keys()
     fig_y = [pn_x[_key] for _key in fig_x]
