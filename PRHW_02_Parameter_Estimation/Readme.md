@@ -5,11 +5,11 @@
 以`python3`实现了`parzen window`的总体分布的非参数估计的方法。
 项目基于以下三种窗函数：
 1. 方窗函数
-![方窗函数](http://latex.codecogs.com/gif.latex?\displaystyle\phi(u)=\begin{cases}\frac{1}{a},&-\frac{1}{2}a\le u\le\frac{1}{2}a\\0,&otherwise.\end{cases})
+![方窗函数](http://latex.codecogs.com/gif.latex?\displaystyle\phi(u)=\begin{cases}\frac{1}{a},&-\frac{1}{2}a\le{u}\le\frac{1}{2}a\\0,&otherwise.\end{cases})
 2. 正态窗函数
-![正态窗函数](http://latex.codecogs.com/gif.latex?\phi(u)= \frac{1}{\sqrt{2\pi}} \text{exp} \left\{-\frac{1}{2}u^2 \right\})
+![正态窗函数](http://latex.codecogs.com/gif.latex?\phi(u)=\frac{1}{\sqrt{2\pi}}\text{exp}\left\{-\frac{1}{2}u^2\right\})
 3. 指数窗函数
-![指数窗函数](http://latex.codecogs.com/gif.latex?\phi(u)= \text{exp}\{- |u| \} )
+![指数窗函数](http://latex.codecogs.com/gif.latex?\phi(u)=\text{exp}\{-|u|\})
 
 对总体
 ![总体分布](http://latex.codecogs.com/gif.latex?p(x) \backsim 0.2N(-1,1)+0.8N(1,1) )
