@@ -116,6 +116,8 @@ def switch_win_func(win_type):
         return unifrom_win_func
     elif win_type == "gaussian":
         return gaussian_win_func
+    elif win_type == "exponential":
+        return exponential_win_func
     else:
         print("Please input a support window function type!")
         sys.exit(0)
@@ -194,7 +196,6 @@ def main():
 
             # 调用matplotlib绘图
             fig_x = pn_x.keys()
-            print(pn_x)
             fig_y = [num_list_average_pd(pn_x[_key], window_width_arg_list[j],
                                          sample_number_arg_list[i]) for _key in fig_x]
             # 计算每个点平均密度
@@ -207,6 +208,9 @@ def main():
             if j == 0:
                 plt.ylabel("N=%d" % sample_number_arg_list[i],
                            fontsize=10)
+
+    plt.suptitle("%s window function" % args.window_type)
+    # 图标标题代表窗类型
     plt.tight_layout()
     plt.show()
 
