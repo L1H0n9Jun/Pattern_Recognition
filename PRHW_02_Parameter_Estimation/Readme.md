@@ -5,14 +5,14 @@
 以`python3`实现了`parzen window`的总体分布的非参数估计的方法。
 项目基于以下三种窗函数：
 1. 方窗函数
-![方窗函数](http://latex.codecogs.com/gif.latex?\displaystyle\phi(u)=\begin{cases}\frac{1}{a},&-\frac{1}{2}a\le{u}\le\frac{1}{2}a\\0,&otherwise.\end{cases})
+<a href="https://www.codecogs.com/eqnedit.php?latex=\phi(u)&space;=&space;\begin{cases}&space;\displaystyle\frac{1}{a},&space;&&space;-\displaystyle\frac{1}{2}a&space;\le&space;u&space;\le&space;\frac{1}{2}a&space;\\&space;0,&space;&&space;otherwise.&space;\end{cases}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\phi(u)&space;=&space;\begin{cases}&space;\displaystyle\frac{1}{a},&space;&&space;-\displaystyle\frac{1}{2}a&space;\le&space;u&space;\le&space;\frac{1}{2}a&space;\\&space;0,&space;&&space;otherwise.&space;\end{cases}" title="\phi(u) = \begin{cases} \displaystyle\frac{1}{a}, & -\displaystyle\frac{1}{2}a \le u \le \frac{1}{2}a \\ 0, & otherwise. \end{cases}" /></a>
 2. 正态窗函数
-![正态窗函数](http://latex.codecogs.com/gif.latex?\phi(u)=\frac{1}{\sqrt{2\pi}}\text{exp}\left\{-\frac{1}{2}u^2\right\})
+<a href="https://www.codecogs.com/eqnedit.php?latex=\phi(u)=&space;\frac{1}{\sqrt{2\pi}}&space;\text{exp}&space;\left\{-\frac{1}{2}u^2&space;\right\}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\phi(u)=&space;\frac{1}{\sqrt{2\pi}}&space;\text{exp}&space;\left\{-\frac{1}{2}u^2&space;\right\}" title="\phi(u)= \frac{1}{\sqrt{2\pi}} \text{exp} \left\{-\frac{1}{2}u^2 \right\}" /></a>
 3. 指数窗函数
-![指数窗函数](http://latex.codecogs.com/gif.latex?\phi(u)=\text{exp}\{-|u|\})
+<a href="https://www.codecogs.com/eqnedit.php?latex=\phi(u)=&space;\text{exp}\{-&space;|u|&space;\}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\phi(u)=&space;\text{exp}\{-&space;|u|&space;\}" title="\phi(u)= \text{exp}\{- |u| \}" /></a>
 
 对总体
-![总体分布](http://latex.codecogs.com/gif.latex?p(x) \backsim 0.2N(-1,1)+0.8N(1,1) )
+<a href="https://www.codecogs.com/eqnedit.php?latex=p(x)&space;\backsim&space;0.2N(-1,1)&plus;0.8N(1,1)" target="_blank"><img src="https://latex.codecogs.com/svg.latex?p(x)&space;\backsim&space;0.2N(-1,1)&plus;0.8N(1,1)" title="p(x) \backsim 0.2N(-1,1)+0.8N(1,1)" /></a>
 进行非参数估计。
 
 ## 结果
