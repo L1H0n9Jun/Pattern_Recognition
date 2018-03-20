@@ -81,14 +81,16 @@ def normal_random_gen(_mu_1, _sigma_1, _mu_2, _sigma_2, n):
     _rand_nor_2 = np.random.normal(_mu_2, _sigma_2, n)
     sample_list = []
     for i in range(0, n):
-        sample_list.append(0.2 * _rand_nor_1[i] + 0.8 * _rand_nor_2[i])
+        sample_list.append(0.2 * _rand_nor_1[i]
+                           + 0.8 * _rand_nor_2[i])
+        # 此处随机数均取两位小数
     sample_list.sort()
     return sample_list
 
 
 def unifrom_win_func(width_a, x):
     """ 定义window function """
-    if (-1.0 / 2 * width_a) <= x <= (1.0 / 2 * width_a):
+    if abs(x / width_a ** 2) <= 0.5:
         return 1.0 / width_a
     else:
         return 0
@@ -129,6 +131,14 @@ def arg_turn2list(_arg, _arg_name):
     return arg_list
 
 
+def num_list_average_pd(_list, win_wid, sample_sum):
+    # 求每个点密度的平均
+    _sum = 0
+    for _ele in _list:
+        _sum += _ele
+    return _sum / (sample_sum * win_wid)
+
+
 # ---------------------------------------------------------------
 # main function
 # ---------------------------------------------------------------
@@ -144,7 +154,6 @@ def main():
     sample_len, width_len = len(
         sample_number_arg_list), len(window_width_arg_list)
     plt.figure(1, dpi=100)
-    sub_fig_no = 0
 
     for i in range(sample_len):
         for j in range(width_len):  # 遍历所有样本数和窗宽组合
@@ -157,21 +166,36 @@ def main():
             # 根据命令行参数确定窗函数类型
 
             for x in sample_point:
-                pn_x[x] = 0
-                for sample in sample_list:
-                    pn_x[x] += window_function(window_width_arg_list[j],
-                                               sample - x)
-                pn_x[x] /= sample_number_arg_list[i]
+                pn_x = {}
+                x_i = int(min(sample_list) - window_width_arg_list[j] / 2)
+                step_length = 0.1
+                end_point = int(max(sample_list) -
+                                window_width_arg_list[j] / 2) + 1
+                # 设定起始点和步长
+                while x_i <= end_point:
+                    if x_i in pn_x.keys():
+                        pn_x[x_i].append(window_function(window_width_arg_list[j],
+                                                         x_i - x))
+                    else:
+                        pn_x[x_i] = [window_function(window_width_arg_list[j],
+                                                     x_i - x)]
+                        # 将特定点在每个样本影响下的概率密度存为列表，密度的平均之后计算
+                    x_i += step_length
 
-            sub_fig_no += 1
+            # 调用matplotlib绘图
             fig_x = pn_x.keys()
-            fig_y = [pn_x[_key] for _key in fig_x]
-            plt.subplot("%d%d%d" % (sample_len, width_len, sub_fig_no))
+            fig_y = [num_list_average_pd(pn_x[_key]) for _key in fig_x]
+            # 计算每个点平均密度
+            plt.subplot2grid((sample_len, width_len), (i, j))
+            # 依次把每个参数组合画为子图
             plt.plot(fig_x, fig_y)
-            if i == 1:
-                plt.title("hn=%d" % window_width_arg_list[j])
-            if j == 1:
-                plt.title("N=%d" % sample_number_arg_list[i])
+            if i == 0:
+                plt.title("hn=%s" % str(round(window_width_arg_list[j], 2)),
+                          fontsize=10)
+            if j == 0:
+                plt.ylabel("N=%d" % sample_number_arg_list[i],
+                           fontsize=10)
+    plt.tight_layout()
     plt.show()
 
 
