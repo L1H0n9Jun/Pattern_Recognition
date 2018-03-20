@@ -25,6 +25,7 @@ Reurirements:
 # ---------------------------------------------------------------
 
 import sys
+import math
 import argparse
 import numpy as np
 import matplotlib.pyplot as plt
@@ -65,7 +66,7 @@ def parse_args():
         '-t', '--window_type',
         type=str,
         required=True,
-        choices=['uniform', 'gaussian'],
+        choices=['uniform', 'gaussian', 'exponential'],
         help="""
         Parzen window type used.
         """
@@ -89,15 +90,24 @@ def normal_random_gen(_mu_1, _sigma_1, _mu_2, _sigma_2, n):
 
 
 def unifrom_win_func(width_a, x):
-    """ 定义window function """
-    if abs(x / width_a ** 2) <= 0.5:
+    """ 定义方窗函数 """
+    if abs(x / width_a) <= 0.5 * width_a:
         return 1.0 / width_a
     else:
         return 0
 
 
 def gaussian_win_func(width_a, x):
-    pass
+    """ 定义正态窗函数 """
+    pd = 1 / math.sqrt(2 * math.pi) * math.exp(
+        -0.5 * (x / width_a) ** 2)
+    return pd
+
+
+def exponential_win_func(width_a, x):
+    """ 定义指数窗函数 """
+    pd = math.exp(-abs(x / width_a))
+    return pd
 
 
 def switch_win_func(win_type):
@@ -165,10 +175,10 @@ def main():
             window_function = switch_win_func(args.window_type)
             # 根据命令行参数确定窗函数类型
 
+            pn_x = {}
             for x in sample_point:
-                pn_x = {}
                 x_i = int(min(sample_list) - window_width_arg_list[j] / 2)
-                step_length = 0.1
+                step_length = 0.01
                 end_point = int(max(sample_list) -
                                 window_width_arg_list[j] / 2) + 1
                 # 设定起始点和步长
@@ -184,6 +194,7 @@ def main():
 
             # 调用matplotlib绘图
             fig_x = pn_x.keys()
+            print(pn_x)
             fig_y = [num_list_average_pd(pn_x[_key], window_width_arg_list[j],
                                          sample_number_arg_list[i]) for _key in fig_x]
             # 计算每个点平均密度
