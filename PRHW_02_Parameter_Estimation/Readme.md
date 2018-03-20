@@ -7,9 +7,11 @@
 1. 方窗函数
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\phi(u)&space;=&space;\begin{cases}&space;\displaystyle\frac{1}{a},&space;&&space;-\displaystyle\frac{1}{2}a&space;\le&space;u&space;\le&space;\frac{1}{2}a&space;\\&space;0,&space;&&space;otherwise.&space;\end{cases}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\phi(u)&space;=&space;\begin{cases}&space;\displaystyle\frac{1}{a},&space;&&space;-\displaystyle\frac{1}{2}a&space;\le&space;u&space;\le&space;\frac{1}{2}a&space;\\&space;0,&space;&&space;otherwise.&space;\end{cases}" title="\phi(u) = \begin{cases} \displaystyle\frac{1}{a}, & -\displaystyle\frac{1}{2}a \le u \le \frac{1}{2}a \\ 0, & otherwise. \end{cases}" /></a>
+
 2. 正态窗函数
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\phi(u)=&space;\frac{1}{\sqrt{2\pi}}&space;\text{exp}&space;\left\{-\frac{1}{2}u^2&space;\right\}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\phi(u)=&space;\frac{1}{\sqrt{2\pi}}&space;\text{exp}&space;\left\{-\frac{1}{2}u^2&space;\right\}" title="\phi(u)= \frac{1}{\sqrt{2\pi}} \text{exp} \left\{-\frac{1}{2}u^2 \right\}" /></a>
+
 3. 指数窗函数
 
 <a href="https://www.codecogs.com/eqnedit.php?latex=\phi(u)=&space;\text{exp}\{-&space;|u|&space;\}" target="_blank"><img src="https://latex.codecogs.com/svg.latex?\phi(u)=&space;\text{exp}\{-&space;|u|&space;\}" title="\phi(u)= \text{exp}\{- |u| \}" /></a>
