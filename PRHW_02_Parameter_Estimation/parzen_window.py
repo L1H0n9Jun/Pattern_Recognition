@@ -11,13 +11,13 @@ PRHW_02_Parameter_Estimation.parzen_window.py
 Please type "./PRHW_02_Parameter_Estimation.parzen_window.py -h" for usage help
     
 Author:
-    Li Hongjun
+    Li Hongjun, 2017310864
 
 Description:
-    context
+    This is a python3 script for the realization of parzen window.
 
 Reurirements:
-    Python packages: argparse, numpy, matplotlib
+    Python3 packages: argparse, numpy, matplotlib
 """
 
 # ---------------------------------------------------------------
@@ -139,21 +139,39 @@ def main():
     args = parse_args()
     sample_number_arg_list = arg_turn2list(args.sample_number, "num")
     window_width_arg_list = arg_turn2list(args.window_width, "width")
+    # 传入样本数和窗宽两个参数并分别转换为列表
 
-    sample_list = normal_random_gen(-1, 1, 1, 1, sample_number_arg_list[0])
-    sample_point = iter(sample_list)
-    pn_x = {}
-    window_function = switch_win_func(args.window_type)
-    for x in sample_point:
-        pn_x[x] = 0
-        for sample in sample_list:
-            pn_x[x] += window_function(window_width_arg_list[0], sample - x)
-        pn_x[x] /= sample_number_arg_list[0]
+    sample_len, width_len = len(
+        sample_number_arg_list), len(window_width_arg_list)
+    plt.figure(1, dpi=100)
+    sub_fig_no = 0
 
-    fig_x = pn_x.keys()
-    fig_y = [pn_x[_key] for _key in fig_x]
-    plt.figure(1, dpi=150)
-    plt.plot(fig_x, fig_y)
+    for i in range(sample_len):
+        for j in range(width_len):  # 遍历所有样本数和窗宽组合
+            sample_list = normal_random_gen(-1, 1, 1, 1,
+                                            sample_number_arg_list[i])
+            # 产生随机样本
+            sample_point = iter(sample_list)
+            pn_x = {}   # 使用字典存储每点概率密度
+            window_function = switch_win_func(args.window_type)
+            # 根据命令行参数确定窗函数类型
+
+            for x in sample_point:
+                pn_x[x] = 0
+                for sample in sample_list:
+                    pn_x[x] += window_function(window_width_arg_list[j],
+                                               sample - x)
+                pn_x[x] /= sample_number_arg_list[i]
+
+            sub_fig_no += 1
+            fig_x = pn_x.keys()
+            fig_y = [pn_x[_key] for _key in fig_x]
+            plt.subplot("%d%d%d" % (sample_len, width_len, sub_fig_no))
+            plt.plot(fig_x, fig_y)
+            if i == 1:
+                plt.title("hn=%d" % window_width_arg_list[j])
+            if j == 1:
+                plt.title("N=%d" % sample_number_arg_list[i])
     plt.show()
 
 
