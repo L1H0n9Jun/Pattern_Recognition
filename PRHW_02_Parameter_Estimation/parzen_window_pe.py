@@ -184,7 +184,8 @@ def main():
 
             # 调用matplotlib绘图
             fig_x = pn_x.keys()
-            fig_y = [num_list_average_pd(pn_x[_key]) for _key in fig_x]
+            fig_y = [num_list_average_pd(pn_x[_key], window_width_arg_list[j],
+                                         sample_number_arg_list[i]) for _key in fig_x]
             # 计算每个点平均密度
             plt.subplot2grid((sample_len, width_len), (i, j))
             # 依次把每个参数组合画为子图
