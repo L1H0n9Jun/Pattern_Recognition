@@ -17,7 +17,7 @@ Description:
     This is a python3 script for the realization of parzen window.
 
 Reurirements:
-    Python3 packages: argparse, numpy, matplotlib
+    Python3 packages: numpy, matplotlib
 """
 
 # ---------------------------------------------------------------
