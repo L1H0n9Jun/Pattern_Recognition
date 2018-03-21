@@ -28,7 +28,6 @@ import sys
 import math
 import argparse
 import numpy as np
-import matplotlib.pyplot as plt
 
 # ---------------------------------------------------------------
 # function definition
@@ -151,6 +150,19 @@ def num_list_average_pd(_list, win_wid, sample_sum):
     return _sum / (sample_sum * win_wid)
 
 
+def origin_population(_start, _end, _step):
+    pd = {}
+    x_i = _start
+    while x_i <= _end:
+        d = 0.2 / math.sqrt(2 * math.pi) * math.exp(
+            -0.5 * (x_i + 1) ** 2) + \
+            0.8 / math.sqrt(2 * math.pi) * math.exp(
+            -0.5 * (x_i - 1) ** 2)
+        pd[x_i] = d
+        x_i += _step
+    return pd
+
+
 # ---------------------------------------------------------------
 # main function
 # ---------------------------------------------------------------
@@ -165,9 +177,12 @@ def main():
 
     sample_len, width_len = len(
         sample_number_arg_list), len(window_width_arg_list)
-    plt.figure(1, dpi=100)
+
+    p_x = origin_population(-4, 4, 0.1)
+    error_collection = []
 
     for i in range(sample_len):
+        error_collection.append([])
         for j in range(width_len):  # 遍历所有样本数和窗宽组合
             sample_list = normal_random_gen(-1, 1, 1, 1,
                                             sample_number_arg_list[i])
@@ -181,7 +196,7 @@ def main():
             for x in sample_point:
                 # x_i = int(min(sample_list) - window_width_arg_list[j] / 2)
                 x_i = -4
-                step_length = 0.01
+                step_length = 0.1
                 # end_point = int(max(sample_list) -
                 #                window_width_arg_list[j] / 2) + 1
                 end_point = 4
@@ -196,25 +211,26 @@ def main():
                         # 将特定点在每个样本影响下的概率密度存为列表，密度的平均之后计算
                     x_i += step_length
 
-            # 调用matplotlib绘图
-            fig_x = pn_x.keys()
-            fig_y = [num_list_average_pd(pn_x[_key], window_width_arg_list[j],
-                                         sample_number_arg_list[i]) for _key in fig_x]
+            for _key in pn_x.keys():
+                pn_x[_key] = num_list_average_pd(pn_x[_key], window_width_arg_list[j],
+                                                 sample_number_arg_list[i])
             # 计算每个点平均密度
-            plt.subplot2grid((sample_len, width_len), (i, j))
-            # 依次把每个参数组合画为子图
-            plt.plot(fig_x, fig_y)
-            if i == 0:
-                plt.title("hn=%s" % str(round(window_width_arg_list[j], 2)),
-                          fontsize=10)
-            if j == 0:
-                plt.ylabel("N=%d" % sample_number_arg_list[i],
-                           fontsize=10)
 
-    plt.suptitle("%s window function" % args.window_type)
-    # 图标标题代表窗类型
-    plt.tight_layout()
-    plt.show()
+            # 计算均方误差
+            error_collection[i].append(sum([(pn_x[_key] - p_x[_key]) ** 2
+                                            for _key in pn_x.keys()]))
+    # MSE 写入文件
+    with open("%s_window_mse.txt" % args.window_type, "w+") as file_out:
+        file_out.write("mse")
+        for _ele in window_width_arg_list:
+            file_out.write("\thn=%s" % str(_ele))
+        file_out.write("\n")
+
+        for i in range(len(sample_number_arg_list)):
+            file_out.write("N=%s" % str(sample_number_arg_list[i]))
+            for _ele in error_collection[i]:
+                file_out.write("\t%s" % str(round(_ele, 6)))
+            file_out.write("\n")
 
 
 if __name__ == "__main__":

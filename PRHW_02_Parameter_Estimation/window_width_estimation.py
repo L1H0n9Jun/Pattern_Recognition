@@ -53,16 +53,6 @@ def parse_args():
         """
     )
     parser.add_argument(
-        '-w', '--window_width',
-        type=str,
-        required=True,
-        help="""
-        Parzen window width used.
-        Could be a single float number or multiple numbers 
-        separated by comma, on which the final figure depends.
-        """
-    )
-    parser.add_argument(
         '-t', '--window_type',
         type=str,
         required=True,
@@ -140,6 +130,7 @@ def arg_turn2list(_arg, _arg_name):
             except:
                 print("[ERROR]\nThe window width value should be a float or integer")
                 sys.exit(0)
+
     return arg_list
 
 
@@ -151,6 +142,19 @@ def num_list_average_pd(_list, win_wid, sample_sum):
     return _sum / (sample_sum * win_wid)
 
 
+def origin_population(_start, _end, _step):
+    pd = {}
+    x_i = _start
+    while x_i <= _end:
+        d = 0.2 / math.sqrt(2 * math.pi) * math.exp(
+            -0.5 * (x_i + 1) ** 2) + \
+            0.8 / math.sqrt(2 * math.pi) * math.exp(
+            -0.5 * (x_i - 1) ** 2)
+        pd[x_i] = d
+        x_i += _step
+    return pd
+
+
 # ---------------------------------------------------------------
 # main function
 # ---------------------------------------------------------------
@@ -160,12 +164,16 @@ def main():
     """ main """
     args = parse_args()
     sample_number_arg_list = arg_turn2list(args.sample_number, "num")
-    window_width_arg_list = arg_turn2list(args.window_width, "width")
+    window_width_arg_list = [0.5 + 0.1 * i for i in range(35)]
     # 传入样本数和窗宽两个参数并分别转换为列表
+    # 窗宽设定为0.5到4，步长为0.1
 
     sample_len, width_len = len(
         sample_number_arg_list), len(window_width_arg_list)
     plt.figure(1, dpi=100)
+
+    p_x = origin_population(-4, 4, 0.1)
+    width_error_collection = {}
 
     for i in range(sample_len):
         for j in range(width_len):  # 遍历所有样本数和窗宽组合
@@ -177,11 +185,10 @@ def main():
             window_function = switch_win_func(args.window_type)
             # 根据命令行参数确定窗函数类型
 
-            pn_x = {}
             for x in sample_point:
                 # x_i = int(min(sample_list) - window_width_arg_list[j] / 2)
                 x_i = -4
-                step_length = 0.01
+                step_length = 0.1
                 # end_point = int(max(sample_list) -
                 #                window_width_arg_list[j] / 2) + 1
                 end_point = 4
@@ -196,23 +203,22 @@ def main():
                         # 将特定点在每个样本影响下的概率密度存为列表，密度的平均之后计算
                     x_i += step_length
 
-            # 调用matplotlib绘图
-            fig_x = pn_x.keys()
-            fig_y = [num_list_average_pd(pn_x[_key], window_width_arg_list[j],
-                                         sample_number_arg_list[i]) for _key in fig_x]
+            for _key in pn_x.keys():
+                pn_x[_key] = num_list_average_pd(pn_x[_key], window_width_arg_list[j],
+                                                 sample_number_arg_list[i])
             # 计算每个点平均密度
-            plt.subplot2grid((sample_len, width_len), (i, j))
-            # 依次把每个参数组合画为子图
-            plt.plot(fig_x, fig_y)
-            if i == 0:
-                plt.title("hn=%s" % str(round(window_width_arg_list[j], 2)),
-                          fontsize=10)
-            if j == 0:
-                plt.ylabel("N=%d" % sample_number_arg_list[i],
-                           fontsize=10)
 
+            # 计算均方误差
+            width_error_collection[window_width_arg_list[j]] = sum([(pn_x[_key] - p_x[_key]) ** 2
+                                                                    for _key in pn_x.keys()])
+        plt.subplot("22%s" % str(i + 1))
+        fig_x = width_error_collection.keys()
+        fig_y = [width_error_collection[_key] for _key in fig_x]
+        plt.plot(fig_x, fig_y)
+        plt.title("N=%s" % sample_number_arg_list[i], fontsize=10)
+        plt.xlabel("window_width", fontsize=10)
+        plt.ylabel("error rate", fontsize=10)
     plt.suptitle("%s window function" % args.window_type)
-    # 图标标题代表窗类型
     plt.tight_layout()
     plt.show()
 

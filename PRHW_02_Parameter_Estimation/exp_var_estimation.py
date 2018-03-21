@@ -28,7 +28,6 @@ import sys
 import math
 import argparse
 import numpy as np
-import matplotlib.pyplot as plt
 
 # ---------------------------------------------------------------
 # function definition
@@ -144,12 +143,32 @@ def arg_turn2list(_arg, _arg_name):
 
 
 def num_list_average_pd(_list, win_wid, sample_sum):
-    # 求每个点密度的平均
+    ''' 求每个点密度的平均 '''
     _sum = 0
     for _ele in _list:
         _sum += _ele
     return _sum / (sample_sum * win_wid)
 
+
+def origin_population(_start, _end, _step):
+    ''' 原始分布的密度 '''
+    pd = {}
+    x_i = _start
+    while x_i <= _end:
+        d = 0.2 / math.sqrt(2 * math.pi) * math.exp(
+            -0.5 * (x_i + 1) ** 2) + \
+            0.8 / math.sqrt(2 * math.pi) * math.exp(
+            -0.5 * (x_i - 1) ** 2)
+        pd[x_i] = d
+        x_i += _step
+    return pd
+
+
+def cal_mean_var(_list):
+    ''' 均值和方差'''
+    mean = sum(_list) / len(_list)
+    var = sum([(mean - _ele) ** 2 for _ele in _list]) / len(_list)
+    return [mean, var]
 
 # ---------------------------------------------------------------
 # main function
@@ -165,56 +184,72 @@ def main():
 
     sample_len, width_len = len(
         sample_number_arg_list), len(window_width_arg_list)
-    plt.figure(1, dpi=100)
+
+    p_x = origin_population(-4, 4, 0.1)
+    exp_collection = []
+    var_collection = []
 
     for i in range(sample_len):
+        exp_collection.append([])
+        var_collection.append([])
         for j in range(width_len):  # 遍历所有样本数和窗宽组合
-            sample_list = normal_random_gen(-1, 1, 1, 1,
-                                            sample_number_arg_list[i])
-            # 产生随机样本
-            sample_point = iter(sample_list)
-            pn_x = {}   # 使用字典存储每点概率密度
-            window_function = switch_win_func(args.window_type)
-            # 根据命令行参数确定窗函数类型
+            k = 1
+            epsilon_list = []
+            while k <= 100:
+                k += 1
+                sample_list = normal_random_gen(-1, 1, 1, 1,
+                                                sample_number_arg_list[i])
+                # 产生随机样本
+                sample_point = iter(sample_list)
+                pn_x = {}   # 使用字典存储每点概率密度
+                window_function = switch_win_func(args.window_type)
+                # 根据命令行参数确定窗函数类型
 
-            pn_x = {}
-            for x in sample_point:
-                # x_i = int(min(sample_list) - window_width_arg_list[j] / 2)
-                x_i = -4
-                step_length = 0.01
-                # end_point = int(max(sample_list) -
-                #                window_width_arg_list[j] / 2) + 1
-                end_point = 4
-                # 设定起始点和步长
-                while x_i <= end_point:
-                    if x_i in pn_x.keys():
-                        pn_x[x_i].append(window_function(window_width_arg_list[j],
-                                                         x_i - x))
-                    else:
-                        pn_x[x_i] = [window_function(window_width_arg_list[j],
-                                                     x_i - x)]
-                        # 将特定点在每个样本影响下的概率密度存为列表，密度的平均之后计算
-                    x_i += step_length
+                pn_x = {}
+                for x in sample_point:
+                    # x_i = int(min(sample_list) - window_width_arg_list[j] / 2)
+                    x_i = -4
+                    step_length = 0.1
+                    # end_point = int(max(sample_list) -
+                    #                window_width_arg_list[j] / 2) + 1
+                    end_point = 4
+                    # 设定起始点和步长
+                    while x_i <= end_point:
+                        if x_i in pn_x.keys():
+                            pn_x[x_i].append(window_function(window_width_arg_list[j],
+                                                             x_i - x))
+                        else:
+                            pn_x[x_i] = [window_function(window_width_arg_list[j],
+                                                         x_i - x)]
+                            # 将特定点在每个样本影响下的概率密度存为列表，密度的平均之后计算
+                        x_i += step_length
 
-            # 调用matplotlib绘图
-            fig_x = pn_x.keys()
-            fig_y = [num_list_average_pd(pn_x[_key], window_width_arg_list[j],
-                                         sample_number_arg_list[i]) for _key in fig_x]
-            # 计算每个点平均密度
-            plt.subplot2grid((sample_len, width_len), (i, j))
-            # 依次把每个参数组合画为子图
-            plt.plot(fig_x, fig_y)
-            if i == 0:
-                plt.title("hn=%s" % str(round(window_width_arg_list[j], 2)),
-                          fontsize=10)
-            if j == 0:
-                plt.ylabel("N=%d" % sample_number_arg_list[i],
-                           fontsize=10)
+                for _key in pn_x.keys():    # 计算每个点平均密度
+                    pn_x[_key] = num_list_average_pd(pn_x[_key], window_width_arg_list[j],
+                                                     sample_number_arg_list[i])
 
-    plt.suptitle("%s window function" % args.window_type)
-    # 图标标题代表窗类型
-    plt.tight_layout()
-    plt.show()
+                # 计算均方误差并存储每轮结果
+                epsilon_list.append(sum([(pn_x[_key] - p_x[_key]) ** 2
+                                         for _key in pn_x.keys()]))
+
+            mean_num, var = cal_mean_var(epsilon_list)
+            exp_collection[i].append(mean_num)
+            var_collection[i].append(var)
+
+    # 均值方差写入文件
+    with open("%s_window_mean_var.txt" % args.window_type, "w+") as file_out:
+        file_out.write("mean/variance")
+        for _ele in window_width_arg_list:
+            file_out.write("\thn=%s" % str(_ele))
+        file_out.write("\n")
+
+        for i in range(len(sample_number_arg_list)):
+            file_out.write("N=%s" % str(sample_number_arg_list[i]))
+            for j in range(len(exp_collection[i])):
+                file_out.write("\t%s/%s" %
+                               (str(round(exp_collection[i][j], 6)),
+                                str(round(var_collection[i][j], 6))))
+            file_out.write("\n")
 
 
 if __name__ == "__main__":
