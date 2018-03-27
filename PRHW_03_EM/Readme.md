@@ -87,13 +87,13 @@ python3 3d_gaussian_em.py
 ### 说明
 
 **E-step:**
-基于初始或M步的参数值，求不完全样本的$x_3$的期望，获得完整数据。
+基于初始或M步的参数值，求不完全样本的<img src="https://latex.codecogs.com/svg.latex?$x_3$" title="$x_3$" />的期望，获得完整数据。
 
 <img src="https://latex.codecogs.com/svg.latex?$$E\{x_3\}&space;=&space;\displaystyle\frac{x_{l,3}&plus;x_{u,3}}{2}$$" title="$$E\{x_3\} = \displaystyle\frac{x_{l,3}+x_{u,3}}{2}$$" />
 
 **M-step:**
 
-基于E步获得的完整数据和原始完整数据求参数$x_l$和$x_u$的最大似然估计
+基于E步获得的完整数据和原始完整数据求参数<img src="https://latex.codecogs.com/svg.latex?$x_l$" title="$x_l$" />和<img src="https://latex.codecogs.com/svg.latex?$x_u$" title="$x_u$" />的最大似然估计
 
 <img src="https://latex.codecogs.com/svg.latex?$$x_{l,i}=x_{i(1)}\\x_{u,i}=x_{i(10)}$$" title="$$x_{l,i}=x_{i(1)}\\x_{u,i}=x_{i(10)}$$" />
 
