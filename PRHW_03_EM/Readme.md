@@ -32,7 +32,8 @@
 基于E步获得的完整数据和原始完整数据求参数$\mu$和协方差阵$\Sigma$的最大似然估计
 <img src="https://latex.codecogs.com/svg.latex?$$\mu=E\{x\}\\\Sigma=E\{(x-\mu)(x-\mu)^T\}$$" />
 
-具体地说，
+具体地说,
+
 <img src="https://latex.codecogs.com/svg.latex?$$\mu_i=E\{x_i\}=\displaystyle\int_{E^d}x_ip(x)dx=\displaystyle\int_{-\infty}^{&plus;\infty}x_ip(x_i)dx_i\\\sigma_{ij}^2=E[(x_i-\mu_i)(x_j-\mu_j)]=\displaystyle\int_{-\infty}^{&plus;\infty}(x_i-\mu_i)(x_j-\mu_j)p(x_i,x_j)dx_ix_j$$" />
 
 其中<img src="https://latex.codecogs.com/svg.latex?$p(x_i)$" />为边缘分布，<img src="https://latex.codecogs.com/svg.latex?$\sigma_{ij}^2$" title="$\sigma_{ij}^2$" />为协方差阵<img src="https://latex.codecogs.com/svg.latex?$\Sigma$" title="$\Sigma$" />对应位置元素。
@@ -48,15 +49,20 @@ python3 3d_gaussian_em.py
 **结果:**
 
 <img src="https://latex.codecogs.com/svg.latex?$\mu$" title="$\mu$" /> EM估计结果:
+
 <img src="https://latex.codecogs.com/svg.latex?$$\left[-0.0709,&space;-0.6047,&space;0.773&space;\right]$$" title="$$\left[-0.0709, -0.6047, 0.773 \right]$$" />
 
 <img src="https://latex.codecogs.com/svg.latex?$\Sigma$" title="$\Sigma$" /> EM估计结果:
+
 <img src="https://latex.codecogs.com/svg.latex?$$&space;\left[&space;\begin{matrix}&space;0.90617729&&space;0.56778177&&space;0.8813737&space;\\&space;0.56778177&&space;4.20071481&&space;0.4622071&space;\\&space;0.8813737&space;&&space;0.4622071&space;&&space;1.321021&space;\\&space;\end{matrix}&space;\right]&space;$$" title="$$ \left[ \begin{matrix} 0.90617729& 0.56778177& 0.8813737 \\ 0.56778177& 4.20071481& 0.4622071 \\ 0.8813737 & 0.4622071 & 1.321021 \\ \end{matrix} \right] $$" />
 
 <img src="https://latex.codecogs.com/svg.latex?$\mu$" title="$\mu$" /> MLE结果:
+
 <img src="https://latex.codecogs.com/svg.latex?$$\left[-0.0709,&space;-0.6047,&space;-0.911&space;\right]$$" title="$$\left[-0.0709, -0.6047, -0.911 \right]$$" />
 <img src="https://latex.codecogs.com/svg.latex?$\Sigma$" title="$\Sigma$" /> MLE结果:
+
 <img src="https://latex.codecogs.com/svg.latex?$$\left[&space;\begin{matrix}&space;0.90617729&&space;0.56778177&&space;0.3940801&space;\\&space;0.56778177&&space;4.20071481&&space;0.7337023&space;\\&space;0.3940801&space;&&space;0.7337023&space;&&space;4.541949&space;\\&space;\end{matrix}&space;\right]$$" title="$$\left[ \begin{matrix} 0.90617729& 0.56778177& 0.3940801 \\ 0.56778177& 4.20071481& 0.7337023 \\ 0.3940801 & 0.7337023 & 4.541949 \\ \end{matrix} \right]$$" />
+
 **分析**
 
 从估计结果来看第三维结果很不理想，但是参数值的确已经收敛。由于收敛时迭代次数较少，我尝试手动指定500次迭代次数，但发现最终结果差别并不大，我猜测可能参数收敛到了局部极值，或者是由于参数较少的原因。
@@ -72,12 +78,15 @@ python3 3d_gaussian_em.py
 
 **E-step:**
 基于初始或M步的参数值，求不完全样本的$x_3$的期望，获得完整数据。
+
 <img src="https://latex.codecogs.com/svg.latex?$$E\{x_3\}&space;=&space;\displaystyle\frac{x_{l,3}&plus;x_{u,3}}{2}$$" title="$$E\{x_3\} = \displaystyle\frac{x_{l,3}+x_{u,3}}{2}$$" />
 
 **M-step:**
 
 基于E步获得的完整数据和原始完整数据求参数$x_l$和$x_u$的最大似然估计
+
 <img src="https://latex.codecogs.com/svg.latex?$$x_{l,i}=x_{i(1)}\\x_{u,i}=x_{i(10)}$$" title="$$x_{l,i}=x_{i(1)}\\x_{u,i}=x_{i(10)}$$" />
+
 其中<img src="https://latex.codecogs.com/svg.latex?$x_{(1)}$" title="$x_{(1)}$" />为顺序统计量。
 如此迭代至收敛。
 
@@ -89,13 +98,21 @@ python3 3d_gaussian_em.py
 **结果:**
 
 <img src="https://latex.codecogs.com/svg.latex?$x_l$" title="$x_l$" /> EM估计结果:
+
 <img src="https://latex.codecogs.com/svg.latex?$$\left[-0.4,0.054,-0.18&space;\right]$$" title="$$\left[-0.4,0.054,-0.18 \right]$$" />
+
 <img src="https://latex.codecogs.com/svg.latex?$x_u$" title="$x_u$" /> EM估计结果:
+
 <img src="https://latex.codecogs.com/svg.latex?$$\left[0.38,0.69,0.089&space;\right]$$" title="$$\left[0.38,0.69,0.089 \right]$$" />
+
 <img src="https://latex.codecogs.com/svg.latex?$x_l$" title="$x_l$" /> MLE结果:
+
 <img src="https://latex.codecogs.com/svg.latex?$$\left[-0.4,0.054,-0.18&space;\right]$$" title="$$\left[-0.4,0.054,-0.18 \right]$$" />
+
 <img src="https://latex.codecogs.com/svg.latex?$x_u$" title="$x_u$" /> MLE结果:
+
 <img src="https://latex.codecogs.com/svg.latex?$$\left[0.38,0.69,0.12&space;\right]$$" title="$$\left[0.38,0.69,0.12 \right]$$" />
+
 **分析:**
 
 下界的估计比较准确，而上界有一定偏差。
