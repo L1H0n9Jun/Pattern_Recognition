@@ -3,7 +3,6 @@
 ### 李洪军，2017310864
 
 ---
-<div style="align: center">
 
 | Points | <img src="https://latex.codecogs.com/svg.latex?$x_1$" />  | <img src="https://latex.codecogs.com/svg.latex?$x_2$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_3$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_1$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_2$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_3$" />|
 | :----: | :----: | :----: | :---: | :----: | :---: | :----: |
@@ -27,15 +26,23 @@
 
 **E-step:**
 基于初始或M步的参数值，求不完全样本的<img src="https://latex.codecogs.com/svg.latex?$x_3$" />的期望，获得完整数据。
+
+<div style="align: center">
 <img src="https://latex.codecogs.com/svg.latex?$$x_{3}=arg\mathop{\max}_{x_{3}}L(\mu,\Sigma|x)=\displaystyle\frac{1}{(2\pi)^{3/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right\}$$" />
+</div>
 
 **M-step:**
 基于E步获得的完整数据和原始完整数据求参数$\mu$和协方差阵$\Sigma$的最大似然估计
+
+<div style="align: center">
 <img src="https://latex.codecogs.com/svg.latex?$$\mu=E\{x\}\\\Sigma=E\{(x-\mu)(x-\mu)^T\}$$" />
+</div>
 
 具体地说,
 
+<div style="align: center">
 <img src="https://latex.codecogs.com/svg.latex?$$\mu_i=E\{x_i\}=\displaystyle\int_{E^d}x_ip(x)dx=\displaystyle\int_{-\infty}^{&plus;\infty}x_ip(x_i)dx_i\\\sigma_{ij}^2=E[(x_i-\mu_i)(x_j-\mu_j)]=\displaystyle\int_{-\infty}^{&plus;\infty}(x_i-\mu_i)(x_j-\mu_j)p(x_i,x_j)dx_ix_j$$" />
+</div>
 
 其中<img src="https://latex.codecogs.com/svg.latex?$p(x_i)$" />为边缘分布，<img src="https://latex.codecogs.com/svg.latex?$\sigma_{ij}^2$" title="$\sigma_{ij}^2$" />为协方差阵<img src="https://latex.codecogs.com/svg.latex?$\Sigma$" title="$\Sigma$" />对应位置元素。
 
@@ -122,4 +129,3 @@ python3 3d_gaussian_em.py
 
 由于未探究EM算法对样本数的依赖性，但是由于其基于最大似然估计，所以样本量过少可能导致过拟合而不能较好的反映总体的特征。仿真中除均匀分布的下界估计较好，其他结果都不甚理想。
 
-</div>
