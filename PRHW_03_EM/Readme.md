@@ -4,6 +4,8 @@
 
 ---
 
+
+
 | Points | <img src="https://latex.codecogs.com/svg.latex?$x_1$" />  | <img src="https://latex.codecogs.com/svg.latex?$x_2$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_3$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_1$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_2$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_3$" />|
 | :----: | :----: | :----: | :---: | :----: | :---: | :----: |
 |   1    |  0.42  | -0.087 | 0.58  |  -0.4  | 0.58  | 0.089  |
