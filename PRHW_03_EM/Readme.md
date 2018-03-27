@@ -4,7 +4,7 @@
 
 ---
 
-| Points | <img src="https://latex.codecogs.com/svg.latex?$x_1$" />  | <img src="https://latex.codecogs.com/svg.latex?$x_2$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_3$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_1$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_2$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_3$" /> |
+| Points | <img src="https://latex.codecogs.com/svg.latex?$x_1$" />  | <img src="https://latex.codecogs.com/svg.latex?$x_2$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_3$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_1$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_2$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_3$" />|
 | :----: | :----: | :----: | :---: | :----: | :---: | :----: |
 |   1    |  0.42  | -0.087 | 0.58  |  -0.4  | 0.58  | 0.089  |
 |   2    |  -0.2  |  -3.3  | -3.4  | -0.31  | 0.27  | -0.04  |
@@ -18,15 +18,15 @@
 |   10   |  0.87  |  -1.0  | -2.6  | -0.12  | 0.054 | -0.063 |
 
 
-**1.** Suppose we know that the ten data points in category <img src="https://latex.codecogs.com/svg.latex?$\omega_1$" /> in the table above come from a three-dimensional Gaussian. Suppose, however, that we do not have access to the <img src="https://latex.codecogs.com/svg.latex?$x_2$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_3$" /> components for the even-numbered data points.
+**1.** Suppose we know that the ten data points in category <img src="https://latex.codecogs.com/svg.latex?$\omega_1$" /> in the table above come from a three-dimensional Gaussian. Suppose, however, that we do not have access to the <img src="https://latex.codecogs.com/svg.latex?$x_3$" /> components for the even-numbered data points.
 + Write an EM program to estimate the mean and covariance of the distribution. Start your estimate with <img src="https://latex.codecogs.com/svg.latex?$\mu_0&space;=&space;0$"/> and <img src="https://latex.codecogs.com/svg.latex?$\Sigma_0&space;=&space;I$" />, the three-dimensional identity matrix.
 + Compare your final estimate with that for the case when there is no missing data.
 
 ### 说明
 
 **E-step:**
-基于初始或M步的参数值，求不完全样本的$x_3$的期望，获得完整数据。
-<img src="https://latex.codecogs.com/svg.latex?$$x_{3}=arg\mathop{\max}_{x_{3}}L(\mu,\Sigma|x)=\displaystyle\frac{1}{(2\pi)^{3/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right\}$$" />
+基于初始或M步的参数值，求不完全样本的<img src="https://latex.codecogs.com/svg.latex?$x_3$" />的期望，获得完整数据。
+<img src="https://latex.codecogs.com/svg.latex?$$x_{3}=arg\mathop{\max}_{x_{3}}L(\mu,\Sigma|x)=\displaystyle\frac{1}{(2\pi)^{3/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right\}$$" style="display:block;margin:0 auto"/>
 
 **M-step:**
 基于E步获得的完整数据和原始完整数据求参数$\mu$和协方差阵$\Sigma$的最大似然估计
