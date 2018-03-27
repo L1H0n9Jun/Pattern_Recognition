@@ -26,7 +26,7 @@
 
 **E-step:**
 基于初始或M步的参数值，求不完全样本的<img src="https://latex.codecogs.com/svg.latex?$x_3$" />的期望，获得完整数据。
-<img src="https://latex.codecogs.com/svg.latex?$$x_{3}=arg\mathop{\max}_{x_{3}}L(\mu,\Sigma|x)=\displaystyle\frac{1}{(2\pi)^{3/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right\}$$" style="display:block;margin:0 auto"/>
+<img src="https://latex.codecogs.com/svg.latex?$$x_{3}=arg\mathop{\max}_{x_{3}}L(\mu,\Sigma|x)=\displaystyle\frac{1}{(2\pi)^{3/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right\}$$" style="display:block;margin:0 auto;vertical-align:middle" />
 
 **M-step:**
 基于E步获得的完整数据和原始完整数据求参数$\mu$和协方差阵$\Sigma$的最大似然估计
