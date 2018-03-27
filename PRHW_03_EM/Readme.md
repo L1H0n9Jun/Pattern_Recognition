@@ -3,6 +3,7 @@
 ### 李洪军，2017310864
 
 ---
+<div style="align: center">
 
 | Points | <img src="https://latex.codecogs.com/svg.latex?$x_1$" />  | <img src="https://latex.codecogs.com/svg.latex?$x_2$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_3$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_1$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_2$" /> | <img src="https://latex.codecogs.com/svg.latex?$x_3$" />|
 | :----: | :----: | :----: | :---: | :----: | :---: | :----: |
@@ -26,7 +27,7 @@
 
 **E-step:**
 基于初始或M步的参数值，求不完全样本的<img src="https://latex.codecogs.com/svg.latex?$x_3$" />的期望，获得完整数据。
-<img src="https://latex.codecogs.com/svg.latex?$$x_{3}=arg\mathop{\max}_{x_{3}}L(\mu,\Sigma|x)=\displaystyle\frac{1}{(2\pi)^{3/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right\}$$" style="display:block;margin:0 auto;vertical-align:middle" />
+<img src="https://latex.codecogs.com/svg.latex?$$x_{3}=arg\mathop{\max}_{x_{3}}L(\mu,\Sigma|x)=\displaystyle\frac{1}{(2\pi)^{3/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right\}$$" />
 
 **M-step:**
 基于E步获得的完整数据和原始完整数据求参数$\mu$和协方差阵$\Sigma$的最大似然估计
@@ -120,3 +121,5 @@ python3 3d_gaussian_em.py
 ### 总结
 
 由于未探究EM算法对样本数的依赖性，但是由于其基于最大似然估计，所以样本量过少可能导致过拟合而不能较好的反映总体的特征。仿真中除均匀分布的下界估计较好，其他结果都不甚理想。
+
+</div>
