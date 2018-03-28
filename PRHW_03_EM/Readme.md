@@ -79,8 +79,7 @@ python3 3d_gaussian_em.py
 从估计结果来看第三维结果很不理想，但是参数值的确已经收敛。由于收敛时迭代次数较少，我尝试手动指定500次迭代次数，但发现最终结果差别并不大，我猜测可能参数收敛到了局部极值，或者是由于参数较少的原因。
 
 
-
-**2.** Suppose we know that the ten data points in category <img src="https://latex.codecogs.com/svg.latex?$\omega_2$" title="$\omega_2$" /> in the table above come from a three-dimensional uniform distribution <img src="https://latex.codecogs.com/svg.latex?$p(x|\omega_2)&space;\sim&space;U(x_l,&space;x_u)$" title="$p(x|\omega_2) \sim U(x_l, x_u)$" />. Suppose, however, that we do not have access to the $x_3$ components for the even-numbered data points.
+**2.** Suppose we know that the ten data points in category <img src="https://latex.codecogs.com/svg.latex?$\omega_2$" title="$\omega_2$" /> in the table above come from a three-dimensional uniform distribution <img src="https://latex.codecogs.com/svg.latex?$p(x|\omega_2)&space;\sim&space;U(x_l,&space;x_u)$" title="$p(x\|\omega_2) \sim U(x_l, x_u)$" />. Suppose, however, that we do not have access to the <img src="https://latex.codecogs.com/svg.latex?$x_3$" /> components for the even-numbered data points.
 
 + Write an EM program to estimate the six scalars comprising <img src="https://latex.codecogs.com/svg.latex?$x_l$" title="$x_l$" /> and <img src="https://latex.codecogs.com/svg.latex?$x_l$" title="$x_u$" /> of the distribution. Start your estimate with <img src="https://latex.codecogs.com/svg.latex?$x_l&space;=&space;(-2,&space;-2,&space;-2)^t$" title="$x_l = (-2, -2, -2)^t$" /> and <img src="https://latex.codecogs.com/svg.latex?$x_u&space;=&space;(&plus;2,&space;&plus;2,&space;&plus;2)^t$" title="$x_u = (+2, +2, +2)^t$" />.
 + Compare your final estimate with that for the case when there is no missing data.
