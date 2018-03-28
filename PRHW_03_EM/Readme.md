@@ -69,6 +69,7 @@ python3 3d_gaussian_em.py
 <img src="https://latex.codecogs.com/svg.latex?$\mu$" title="$\mu$" /> MLE结果:
 
 <img src="https://latex.codecogs.com/svg.latex?$$\left[-0.0709,&space;-0.6047,&space;-0.911&space;\right]$$" title="$$\left[-0.0709, -0.6047, -0.911 \right]$$" />
+
 <img src="https://latex.codecogs.com/svg.latex?$\Sigma$" title="$\Sigma$" /> MLE结果:
 
 <img src="https://latex.codecogs.com/svg.latex?$$\left[&space;\begin{matrix}&space;0.90617729&&space;0.56778177&&space;0.3940801&space;\\&space;0.56778177&&space;4.20071481&&space;0.7337023&space;\\&space;0.3940801&space;&&space;0.7337023&space;&&space;4.541949&space;\\&space;\end{matrix}&space;\right]$$" title="$$\left[ \begin{matrix} 0.90617729& 0.56778177& 0.3940801 \\ 0.56778177& 4.20071481& 0.7337023 \\ 0.3940801 & 0.7337023 & 4.541949 \\ \end{matrix} \right]$$" />
