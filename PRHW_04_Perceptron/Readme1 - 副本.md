@@ -11,7 +11,7 @@
 
 ---
 **Algorithm 1** Fixed-Increment Single Sample Correction
-1. **initialize** $\alpha,k \leftarrow 0$
+1. **initialize** $ \alpha, k \leftarrow 0 $
 2. **repeat**
 3. &nbsp;&nbsp;&nbsp;&nbsp;$k \leftarrow (k+1)$ mod n
 4. &nbsp;&nbsp;&nbsp;&nbsp;**if** $y_k$ is misclassifed by $\alpha$ **then**
@@ -21,11 +21,12 @@
 8. **return** $\alpha$
 
 ---
+
 因此，在 margin 感知器的训练中，“错误”包括两种情况：1）标签预测错误（prediction mistake）；2）标签预测正确但 margin 不够大（margin mistake）。
 
 ---
 **Algorithm 2** Single Sample Correction Algorithm With Margin
-1. **initialize** $\alpha,k \leftarrow 0$
+1. **initialize** $ \alpha,k \leftarrow 0 $
 2. **repeat**
 3. &nbsp;&nbsp;&nbsp;&nbsp;$k \leftarrow (k+1)$ mod n
 4. &nbsp;&nbsp;&nbsp;&nbsp;**if** $\alpha^Ty_k \le \gamma$ **then**
@@ -35,8 +36,6 @@
 8. **return** $\alpha$
 
 ---
-
-
 
 - 随机生成200个二维平面上的点，其中100个标记为1，剩下的100 个标记为-1，保证它们是线性可分的。画出这200个点的分布。
 - 编程实现经典感知器算法，并在生成的数据集上运行。在一张图上画出分界线和数据点。
@@ -62,7 +61,3 @@
 对于margin感知器来说，由于其约束了样本到分界线的间隔，固可以一定程度上解决经典感知器泛化能力不强的缺陷。从结果可以看到，当间隔的设置很小($\gamma$ = 0.1)时，其性能和经典感知器相差不大，但随着间隔设置的增加，分界线与两类样本所有点最近距离都在增加，在$\gamma = 4$时，分界线已经几乎是最优分解线。
 
 总结，经典感知器算法简单易于实现，但容易出现过拟合问题。margin感知器通过引入间隔限制增加了其泛化能力。
-
-
-
-
