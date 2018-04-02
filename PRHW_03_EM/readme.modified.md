@@ -22,19 +22,19 @@
 
 
 **1.** Suppose we know that the ten data points in category ![equation](https://latex.codecogs.com/svg.latex?$\omega_1$) in the table above come from a three-dimensional Gaussian. Suppose, however, that we do not have access to the ![equation](https://latex.codecogs.com/svg.latex?$x_3$) components for the even-numbered data points.
-+ Write an EM program to estimate the mean and covariance of the distribution. Start your estimate with ![equation](https://latex.codecogs.com/svg.latex?$\mu_0&nbsp;=&nbsp;0$) and ![equation](https://latex.codecogs.com/svg.latex?$\Sigma_0&nbsp;=&nbsp;I$), the three-dimensional identity matrix.
++ Write an EM program to estimate the mean and covariance of the distribution. Start your estimate with ![equation](https://latex.codecogs.com/svg.latex?$\mu_0=0$) and ![equation](https://latex.codecogs.com/svg.latex?$\Sigma_0=I$), the three-dimensional identity matrix.
 + Compare your final estimate with that for the case when there is no missing data.
 
 ### 说明
 
 **E-step:**
 基于初始或M步的参数值，求不完全样本的![equation](https://latex.codecogs.com/svg.latex?$x_3$)的期望，获得完整数据。
-![equation](https://latex.codecogs.com/svg.latex?$$x_{3}=arg\mathop{\max}_{x_{3}}L(\mu,\Sigma|x)=\displaystyle\frac{1}{(2\pi)^{3/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right\}&nbsp;$$)
+![equation](https://latex.codecogs.com/svg.latex?$$x_{3}=arg\mathop{\max}_{x_{3}}L(\mu,\Sigma|x)=\displaystyle\frac{1}{(2\pi)^{3/2}|\Sigma|^{1/2}}\exp\left\{-\frac{1}{2}(x-\mu)^T\Sigma^{-1}(x-\mu)\right\}$$)
 **M-step:**
 基于E步获得的完整数据和原始完整数据求参数![equation](https://latex.codecogs.com/svg.latex?$\mu$)和协方差阵![equation](https://latex.codecogs.com/svg.latex?$\Sigma$)的最大似然估计
-![equation](https://latex.codecogs.com/svg.latex?$$\mu=E\{x\}\\\Sigma=E\{(x-\mu)(x-\mu)^T\}&nbsp;$$)
+![equation](https://latex.codecogs.com/svg.latex?$$\mu=E\{x\}\\\Sigma=E\{(x-\mu)(x-\mu)^T\}$$)
 具体地说，
-![equation](https://latex.codecogs.com/svg.latex?$$\mu_i=E\{x_i\}=\displaystyle\int_{E^d}x_ip(x)dx=\displaystyle\int_{-\infty}^{+\infty}x_ip(x_i)dx_i\\\sigma_{ij}^2=E[(x_i-\mu_i)(x_j-\mu_j)]=\displaystyle\int_{-\infty}^{+\infty}(x_i-\mu_i)(x_j-\mu_j)p(x_i,x_j)dx_ix_j&nbsp;$$)
+![equation](https://latex.codecogs.com/svg.latex?$$\mu_i=E\{x_i\}=\displaystyle\int_{E^d}x_ip(x)dx=\displaystyle\int_{-\infty}^{+\infty}x_ip(x_i)dx_i\\\sigma_{ij}^2=E[(x_i-\mu_i)(x_j-\mu_j)]=\displaystyle\int_{-\infty}^{+\infty}(x_i-\mu_i)(x_j-\mu_j)p(x_i,x_j)dx_ix_j$$)
 其中![equation](https://latex.codecogs.com/svg.latex?$p(x_i)$)为边缘分布，![equation](https://latex.codecogs.com/svg.latex?$\sigma_{ij}^2$)为协方差阵![equation](https://latex.codecogs.com/svg.latex?$\Sigma$)对应位置元素。
 
 如此迭代至收敛。
@@ -49,24 +49,24 @@ python3 3d_gaussian_em.py
 **结果:**
 
 ![equation](https://latex.codecogs.com/svg.latex?$\mu$) EM估计结果:
-![equation](https://latex.codecogs.com/svg.latex?$$\left[-0.0709,&nbsp;-0.6047,&nbsp;0.773&nbsp;\right]&nbsp;$$)
+![equation](https://latex.codecogs.com/svg.latex?$$\left[-0.0709,-0.6047,0.773\right]$$)
 
 
 ![equation](https://latex.codecogs.com/svg.latex?$\Sigma$) EM估计结果:
-![equation](https://latex.codecogs.com/svg.latex?$$\left[&nbsp;\begin{matrix}&nbsp;0.90617729&&nbsp;0.56778177&&nbsp;0.8813737&nbsp;\\&nbsp;0.56778177&&nbsp;4.20071481&&nbsp;0.4622071&nbsp;\\&nbsp;0.8813737&nbsp;&&nbsp;0.4622071&nbsp;&&nbsp;1.321021&nbsp;\\&nbsp;\end{matrix}&nbsp;\right]&nbsp;$$)
+![equation](https://latex.codecogs.com/svg.latex?$$\left[\begin{matrix}0.90617729&0.56778177&0.8813737\\0.56778177&4.20071481&0.4622071\\0.8813737&0.4622071&1.321021\\\end{matrix}\right]$$)
 ![equation](https://latex.codecogs.com/svg.latex?$\mu$) MLE结果:
-![equation](https://latex.codecogs.com/svg.latex?$$\left[-0.0709,&nbsp;-0.6047,&nbsp;-0.911&nbsp;\right]&nbsp;$$)
+![equation](https://latex.codecogs.com/svg.latex?$$\left[-0.0709,-0.6047,-0.911\right]$$)
 ![equation](https://latex.codecogs.com/svg.latex?$\Sigma$) MLE结果:
-![equation](https://latex.codecogs.com/svg.latex?$$\left[&nbsp;\begin{matrix}&nbsp;0.90617729&&nbsp;0.56778177&&nbsp;0.3940801&nbsp;\\&nbsp;0.56778177&&nbsp;4.20071481&&nbsp;0.7337023&nbsp;\\&nbsp;0.3940801&nbsp;&&nbsp;0.7337023&nbsp;&&nbsp;4.541949&nbsp;\\&nbsp;\end{matrix}&nbsp;\right]&nbsp;$$)
+![equation](https://latex.codecogs.com/svg.latex?$$\left[\begin{matrix}0.90617729&0.56778177&0.3940801\\0.56778177&4.20071481&0.7337023\\0.3940801&0.7337023&4.541949\\\end{matrix}\right]$$)
 **分析**
 
 从估计结果来看第三维结果很不理想，但是参数值的确已经收敛。由于收敛时迭代次数较少，我尝试手动指定500次迭代次数，但发现最终结果差别并不大，我猜测可能参数收敛到了局部极值，或者是由于参数较少的原因。
 
 
 
-**2.** Suppose we know that the ten data points in category ![equation](https://latex.codecogs.com/svg.latex?$\omega_2$) in the table above come from a three-dimensional uniform distribution ![equation](https://latex.codecogs.com/svg.latex?$p(x|\omega_2)&nbsp;\sim&nbsp;U(x_l,&nbsp;x_u)$). Suppose, however, that we do not have access to the ![equation](https://latex.codecogs.com/svg.latex?$x_3$) components for the even-numbered data points.
+**2.** Suppose we know that the ten data points in category ![equation](https://latex.codecogs.com/svg.latex?$\omega_2$) in the table above come from a three-dimensional uniform distribution ![equation](https://latex.codecogs.com/svg.latex?$p(x|\omega_2)\simU(x_l,x_u)$). Suppose, however, that we do not have access to the ![equation](https://latex.codecogs.com/svg.latex?$x_3$) components for the even-numbered data points.
 
-+ Write an EM program to estimate the six scalars comprising ![equation](https://latex.codecogs.com/svg.latex?$x_l$) and ![equation](https://latex.codecogs.com/svg.latex?$x_u$) of the distribution. Start your estimate with ![equation](https://latex.codecogs.com/svg.latex?$x_l&nbsp;=&nbsp;(-2,&nbsp;-2,&nbsp;-2)^t$) and ![equation](https://latex.codecogs.com/svg.latex?$x_u&nbsp;=&nbsp;(+2,&nbsp;+2,&nbsp;+2)^t$).
++ Write an EM program to estimate the six scalars comprising ![equation](https://latex.codecogs.com/svg.latex?$x_l$) and ![equation](https://latex.codecogs.com/svg.latex?$x_u$) of the distribution. Start your estimate with ![equation](https://latex.codecogs.com/svg.latex?$x_l=(-2,-2,-2)^t$) and ![equation](https://latex.codecogs.com/svg.latex?$x_u=(+2,+2,+2)^t$).
 + Compare your final estimate with that for the case when there is no missing data.
 
 ### 说明
@@ -74,11 +74,11 @@ python3 3d_gaussian_em.py
 **E-step:**
 
 基于初始或M步的参数值，求不完全样本的![equation](https://latex.codecogs.com/svg.latex?$x_3$)的期望，获得完整数据。
-![equation](https://latex.codecogs.com/svg.latex?$$E\{x_3\}&nbsp;=&nbsp;\displaystyle\frac{x_{l,3}+x_{u,3}}{2}&nbsp;$$)
+![equation](https://latex.codecogs.com/svg.latex?$$E\{x_3\}=\displaystyle\frac{x_{l,3}+x_{u,3}}{2}$$)
 **M-step:**
 
 基于E步获得的完整数据和原始完整数据求参数![equation](https://latex.codecogs.com/svg.latex?$x_l$)和![equation](https://latex.codecogs.com/svg.latex?$x_u$)的最大似然估计
-![equation](https://latex.codecogs.com/svg.latex?$$x_{l,i}=x_{i(1)}\\x_{u,i}=x_{i(10)}&nbsp;$$)
+![equation](https://latex.codecogs.com/svg.latex?$$x_{l,i}=x_{i(1)}\\x_{u,i}=x_{i(10)}$$)
 其中![equation](https://latex.codecogs.com/svg.latex?$x_{(1)}$)为顺序统计量。
 如此迭代至收敛。
 
@@ -90,13 +90,13 @@ python3 3d_gaussian_em.py
 **结果:**
 
 ![equation](https://latex.codecogs.com/svg.latex?$x_l$) EM估计结果:
-![equation](https://latex.codecogs.com/svg.latex?$$\left[-0.4,0.054,-0.18&nbsp;\right]&nbsp;$$)
+![equation](https://latex.codecogs.com/svg.latex?$$\left[-0.4,0.054,-0.18\right]$$)
 ![equation](https://latex.codecogs.com/svg.latex?$x_u$) EM估计结果:
-![equation](https://latex.codecogs.com/svg.latex?$$\left[0.38,0.69,0.089&nbsp;\right]&nbsp;$$)
+![equation](https://latex.codecogs.com/svg.latex?$$\left[0.38,0.69,0.089\right]$$)
 ![equation](https://latex.codecogs.com/svg.latex?$x_l$) MLE结果:
-![equation](https://latex.codecogs.com/svg.latex?$$\left[-0.4,0.054,-0.18&nbsp;\right]&nbsp;$$)
+![equation](https://latex.codecogs.com/svg.latex?$$\left[-0.4,0.054,-0.18\right]$$)
 ![equation](https://latex.codecogs.com/svg.latex?$x_u$) MLE结果:
-![equation](https://latex.codecogs.com/svg.latex?$$\left[0.38,0.69,0.12&nbsp;\right]&nbsp;$$)
+![equation](https://latex.codecogs.com/svg.latex?$$\left[0.38,0.69,0.12\right]$$)
 **分析:**
 
 下界的估计比较准确，而上界有一定偏差。
