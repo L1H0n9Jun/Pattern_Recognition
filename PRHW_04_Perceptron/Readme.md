@@ -6,7 +6,7 @@
 
 ---
 
-经典感知器的训练过程可以看成在解区内寻找一个解，并没有对这个解的性能有所限定。这个解只需满足<img src="https://latex.codecogs.com/svg.latex?<img src="https://latex.codecogs.com/svg.latex?$\alpha^Ty_n>0$" />" />，其中<img src="https://latex.codecogs.com/svg.latex?<img src="https://latex.codecogs.com/svg.latex?$\alpha$" />" />是感知器的权向量，<img src="https://latex.codecogs.com/svg.latex?$y_n$" />是规范化增广样本向量。
+经典感知器的训练过程可以看成在解区内寻找一个解，并没有对这个解的性能有所限定。这个解只需满足<img src="https://latex.codecogs.com/svg.latex?$\alpha^Ty_n>0$" />" />，其中<img src="https://latex.codecogs.com/svg.latex?$\alpha$" />" />是感知器的权向量，<img src="https://latex.codecogs.com/svg.latex?$y_n$" />是规范化增广样本向量。
 而margin 感知器则要求算法收敛的超平面有一个大于<img src="https://latex.codecogs.com/svg.latex?$\gamma​$" /> 的margin，其中<img src="https://latex.codecogs.com/svg.latex?$\gamma​$" /> 是预先设定的一个正数。即，margin 感知器的解需要满足 <img src="https://latex.codecogs.com/svg.latex?$\alpha^Ty_n>\gamma​$" />。
 
 ---
