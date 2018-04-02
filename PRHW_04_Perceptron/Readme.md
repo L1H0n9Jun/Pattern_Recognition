@@ -2,7 +2,6 @@
 
 ### 李洪军，2017310864
 
-<img src=\"https://latex.codecogs.com/svg.latex?" />
 
 ---
 
@@ -13,9 +12,9 @@
 **Algorithm 1** Fixed-Increment Single Sample Correction
 1. **initialize** <img src="https://latex.codecogs.com/svg.latex?$\alpha,k\leftarrow0$" />
 2. **repeat**
-3. &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://latex.codecogs.com/svg.latex?$k \leftarrow (k+1)$" /> mod n
+3. &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://latex.codecogs.com/svg.latex?$k\leftarrow(k+1)$" /> mod n
 4. &nbsp;&nbsp;&nbsp;&nbsp;**if** <img src="https://latex.codecogs.com/svg.latex?$y_k$" /> is misclassifed by <img src="https://latex.codecogs.com/svg.latex?$\alpha$" /> **then**
-5. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://latex.codecogs.com/svg.latex?$\alpha \leftarrow \alpha + y_k$" />
+5. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://latex.codecogs.com/svg.latex?$\alpha\leftarrow\alpha+y_k$" />
 6. &nbsp;&nbsp;&nbsp;&nbsp;**end if**
 7. **until** all patterns are properly classifed
 8. **return** <img src="https://latex.codecogs.com/svg.latex?$\alpha$" />
@@ -26,11 +25,11 @@
 
 ---
 **Algorithm 2** Single Sample Correction Algorithm With Margin
-1. **initialize** <img src="https://latex.codecogs.com/svg.latex?$ \alpha,k \leftarrow 0 $" />
+1. **initialize** <img src="https://latex.codecogs.com/svg.latex?$\alpha,k\leftarrow0$" />
 2. **repeat**
-3. &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://latex.codecogs.com/svg.latex?$k \leftarrow (k+1)$" /> mod n
-4. &nbsp;&nbsp;&nbsp;&nbsp;**if** <img src="https://latex.codecogs.com/svg.latex?$\alpha^Ty_k \le \gamma$" /> **then**
-5. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://latex.codecogs.com/svg.latex?$\alpha \leftarrow \alpha + y_k$" />
+3. &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://latex.codecogs.com/svg.latex?$k\leftarrow(k+1)$" /> mod n
+4. &nbsp;&nbsp;&nbsp;&nbsp;**if** <img src="https://latex.codecogs.com/svg.latex?$\alpha^Ty_k\le\gamma$" /> **then**
+5. &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<img src="https://latex.codecogs.com/svg.latex?$\alpha\leftarrow\alpha+y_k$" />
 6. &nbsp;&nbsp;&nbsp;&nbsp;**end if**
 7. **until** all patterns are properly classifed with a large enough margin <img src="https://latex.codecogs.com/svg.latex?$\gamma$" />
 8. **return** <img src="https://latex.codecogs.com/svg.latex?$\alpha$" />
@@ -58,6 +57,6 @@
 #### 分析
 对于经典感知器来说，由于没有间隔的限制，只要求对两类点进行正确的分类即可，因此很可能出现对训练样本的过拟合而使在样本出现一定的噪声下分类错误。结果也说明了这一点，某些正类样本和分界线几乎无间隔，这种情况下对这些样本来说无法容噪声。
 
-对于margin感知器来说，由于其约束了样本到分界线的间隔，固可以一定程度上解决经典感知器泛化能力不强的缺陷。从结果可以看到，当间隔的设置很小(<img src="https://latex.codecogs.com/svg.latex?$\gamma$" /> = 0.1)时，其性能和经典感知器相差不大，但随着间隔设置的增加，分界线与两类样本所有点最近距离都在增加，在<img src="https://latex.codecogs.com/svg.latex?$\gamma = 4$" />时，分界线已经几乎是最优分解线。
+对于margin感知器来说，由于其约束了样本到分界线的间隔，固可以一定程度上解决经典感知器泛化能力不强的缺陷。从结果可以看到，当间隔的设置很小(<img src="https://latex.codecogs.com/svg.latex?$\gamma$" /> = 0.1)时，其性能和经典感知器相差不大，但随着间隔设置的增加，分界线与两类样本所有点最近距离都在增加，在<img src="https://latex.codecogs.com/svg.latex?$\gamma=4$" />时，分界线已经几乎是最优分解线。
 
 总结，经典感知器算法简单易于实现，但容易出现过拟合问题。margin感知器通过引入间隔限制增加了其泛化能力。
