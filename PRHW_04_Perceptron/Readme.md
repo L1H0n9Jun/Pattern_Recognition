@@ -2,16 +2,16 @@
 
 ### 李洪军，2017310864
 
-<img src=\"https://latex.codecogs.com/svg.latex?" />"
+<img src=\"https://latex.codecogs.com/svg.latex?" />
 
 ---
 
-经典感知器的训练过程可以看成在解区内寻找一个解，并没有对这个解的性能有所限定。这个解只需满足<img src="https://latex.codecogs.com/svg.latex?$\alpha^Ty_n>0$" />" />，其中<img src="https://latex.codecogs.com/svg.latex?$\alpha$" />" />是感知器的权向量，<img src="https://latex.codecogs.com/svg.latex?$y_n$" />是规范化增广样本向量。
+经典感知器的训练过程可以看成在解区内寻找一个解，并没有对这个解的性能有所限定。这个解只需满足<img src="https://latex.codecogs.com/svg.latex?$\alpha^Ty_n>0$" />，其中<img src="https://latex.codecogs.com/svg.latex?$\alpha$" />是感知器的权向量，<img src="https://latex.codecogs.com/svg.latex?$y_n$" />是规范化增广样本向量。
 而margin 感知器则要求算法收敛的超平面有一个大于<img src="https://latex.codecogs.com/svg.latex?$\gamma​$" /> 的margin，其中<img src="https://latex.codecogs.com/svg.latex?$\gamma​$" /> 是预先设定的一个正数。即，margin 感知器的解需要满足 <img src="https://latex.codecogs.com/svg.latex?$\alpha^Ty_n>\gamma​$" />。
 
 ---
 **Algorithm 1** Fixed-Increment Single Sample Correction
-1. **initialize** <img src="https://latex.codecogs.com/svg.latex?$ \alpha, k \leftarrow 0 $" />
+1. **initialize** <img src="https://latex.codecogs.com/svg.latex?$\alpha,k\leftarrow0$" />
 2. **repeat**
 3. &nbsp;&nbsp;&nbsp;&nbsp;<img src="https://latex.codecogs.com/svg.latex?$k \leftarrow (k+1)$" /> mod n
 4. &nbsp;&nbsp;&nbsp;&nbsp;**if** <img src="https://latex.codecogs.com/svg.latex?$y_k$" /> is misclassifed by <img src="https://latex.codecogs.com/svg.latex?$\alpha$" /> **then**
