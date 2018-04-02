@@ -14,7 +14,8 @@ Author:
     Li Hongjun
 
 Description:
-    context
+    This is a python3 script for the realization of classic perceptron
+    and margin perceptron.
 
 Reurirements:
     Python packages: numpy, matplotlib
